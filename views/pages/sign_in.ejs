@@ -1,0 +1,20 @@
+<div class="sign-in">
+	<div>
+		<h2>Авторизация</h2>
+
+		<% if (message.length > 0) { %>
+			<div class="alert alert-danger"><%= message %></div>
+		<% } %>
+
+		<form action="/sign-in" method="post">
+			<label for="email">Электронная почта</label><br>
+			<input type="text" name="email" id="email"><br>
+			<label for="passwd">Пароль</label><br>
+			<input type="text" name="passwd" id="passwd"><br>
+			<input type="submit" name="sign-in" value="Войти">
+		</form>
+
+		<p>Need an account? <a href="/sign-up">Регистрация</a></p>
+		<p>Or go <a href="/">home</a>.</p>
+	</div>	
+</div>

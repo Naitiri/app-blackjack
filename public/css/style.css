@@ -1,0 +1,122 @@
+html {
+	font-family: 'Arsenal', sans-serif;
+	background-color: #1B1B1B;
+	color: white;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+}
+
+.wrapper {
+	margin: 0 auto;
+	max-width: 1450px;
+}
+
+.logo-and-menu {
+    border-bottom: 1px solid #525050;
+}
+
+.logo {
+	display: inline;
+    padding-left: 50px;
+}
+
+.logo img {
+	height: 100px;
+}
+
+.menu {
+	padding-right: 100px;
+    float: right;
+    line-height: 120px;
+}
+
+.menu li {
+	display: inline-block;
+	margin-right: 40px;
+}
+
+.menu li a {
+	color: white;
+	text-decoration: none;
+	font-size: 18px;
+}
+
+.menu li a:hover {
+	color: #e8200e;
+}
+
+.banner img {
+    width: 100%;
+}
+
+.bj-rules {
+    padding: 10px;
+}
+
+.bj-rules strong,
+h2 {
+	color: #e8200e;
+}
+
+/*---------------------------------------------Авторизация*/
+.sign-up>div,
+.sign-in>div {
+    width: 400px;
+    margin: 100px auto;
+}
+
+.sign-up h2,
+.sign-in h2 {
+	text-align: center;
+	width: 312px;
+}
+
+.sign-up label,
+.sign-in label {
+    font-size: 14px;
+    color: #cecccb;
+    font-style: italic;
+}
+
+.sign-up input,
+.sign-in input {
+    margin: 10px 0;
+    padding-left: 10px;  
+    /*text-align: center;*/
+}
+
+.sign-up input[type="text"],
+.sign-in input[type="text"] {
+	width: 300px;
+	height: 30px;
+	background-color: #282828;
+	border: 1px solid #797979;
+	font-size: 14px;
+	color: white;
+	margin: 2px 0 10px;
+}
+
+.sign-up input[type="submit"],
+.sign-in input[type="submit"] {
+    width: 312px;
+    height: 40px;
+    background-color: #8c1d13;
+    border: none;
+    color: #c3c3c3;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.sign-up input[type="text"]:focus,
+.sign-in input[type="text"]:focus {
+	outline: 1px solid #b1b1b1;
+}
+
+.sign-up input[type="submit"]:focus,
+.sign-in input[type="submit"]:focus {
+	outline: 1px solid #750f00;
+}
