@@ -1,52 +1,58 @@
-function run(app, passport){
+function run(app, passport, io, userModel){
+	// require("./socket.js")(io);
 	
-	
+	var dataToTemplate = {};
+
+	app.use(function(req, res, next){
+		dataToTemplate = {
+			auth:req.isAuthenticated()
+		}
+		next();
+	});
+
 	app.get("/", function(req, res){
-		res.render('template', {page:"main"} );
+		dataToTemplate.page = "main";
+		dataToTemplate.message = req.flash('loginMessage');
+	
+		res.render('template',  dataToTemplate);
 	})
 
 	app.get("/about", function(req, res){
-		res.render('template', {page:"about"} );
+		dataToTemplate.page = "about";
+		res.render('template',  dataToTemplate);
 	})
 
-	//USERS
-	app.get("/users", function(req, res){
-		usersModel.find({}, 'fname', function(err,users){
-			console.log(users);
-			res.render('template', {page:"users"} );
-		})
-		
+	app.get("/game", isLoggedIn, function(req, res){
+
+		dataToTemplate.page = "game";
+		res.render('template', dataToTemplate );
 	})
+
+	app.post("/game", isLoggedIn, function(req, res){
+
+		// var Table = require('../models/table.js');
+	})	
 
 	//PROFILE
 	app.get("/profile", isLoggedIn, function(req, res){
-		res.render('template', {page:"profile", user : req.user} );
-	});
-
-	//404
-	app.use(function(req, res){
-		res.status(404);
-		res.render('template', {page:"404"} );
+		req.session.user = req.user;
+		console.log(req.user);
+		dataToTemplate.page = "profile";
+		dataToTemplate.user = req.user;
+		res.render('template', dataToTemplate );
 	})
 
-	//500
-	app.use(function(err, req, res, next){
-		res.status(500);
-		if(err){console.log(err);}
-		res.render('template', {page:"500"} );
-	})
-
-
+	
 	// SIGNUP =================================
 		// show the signup form
-	app.get("/sign-up", function(req, res){
-		res.render('template', {page:"sign_up", message: req.flash('loginMessage')} );
+	app.get("/signup", function(req, res){
+		res.render('template', {page:"sign_up", auth:req.isAuthenticated(), message: req.flash('loginMessage')} );
 	})
 
 	// process the signup form
 		app.post('/signup', passport.authenticate('local-signup', {
 			successRedirect : '/profile', // redirect to the secure profile section
-			failureRedirect : '/signup', // redirect back to the signup page if there is an error
+			failureRedirect : '/', // redirect back to the signup page if there is an error
 			failureFlash : true // allow flash messages
 		}));
 	
@@ -55,19 +61,19 @@ function run(app, passport){
 		// send to facebook to do the authentication
 		app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
-		// handle the callback after facebook has authenticated the user
+	// 	// handle the callback after facebook has authenticated the user
 		app.get('/auth/facebook/callback',
 			passport.authenticate('facebook', {
 				successRedirect : '/profile',
 				failureRedirect : '/'
 			}));
 
-	// twitter --------------------------------
+	// // twitter --------------------------------
 
-		// send to twitter to do the authentication
+	// 	// send to twitter to do the authentication
 		app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
 
-		// handle the callback after twitter has authenticated the user
+	// 	// handle the callback after twitter has authenticated the user
 		app.get('/auth/twitter/callback',
 			passport.authenticate('twitter', {
 				successRedirect : '/profile',
@@ -75,12 +81,12 @@ function run(app, passport){
 			}));
 
 
-	// google ---------------------------------
+	// // google ---------------------------------
 
-		// send to google to do the authentication
+	// 	// send to google to do the authentication
 		app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
-		// the callback after google has authenticated the user
+	// 	// the callback after google has authenticated the user
 		app.get('/auth/google/callback',
 			passport.authenticate('google', {
 				successRedirect : '/profile',
@@ -89,14 +95,14 @@ function run(app, passport){
 	
 	// LOGIN ===============================
 		// show the login form
-	app.get("/sign-in", function(req, res){
-		res.render('template', {page:"sign_in", message: req.flash('loginMessage')} );
-	})
+	// app.get("/login", function(req, res){
+	// 	res.render('template', {page:"sign_in", message: req.flash('loginMessage')} );
+	// })
 	
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect : '/profile', // redirect to the secure profile section
-		failureRedirect : '/login', // redirect back to the signup page if there is an error
+		failureRedirect : '/', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));	
 
@@ -105,6 +111,46 @@ function run(app, passport){
 		req.logout();
 		res.redirect('/');
 	});
+
+	// EDIT PROFILE ===============================
+	
+	app.post('/editProfile', function(req, res){
+		
+		var User       = require('../models/users');
+
+		User.findById(req.user.id, function (err, user) {  
+		 //  if (err) {
+			// 	console.error(err); 
+			// 	res.status(500); 
+			// 	res.send(""); 
+			// 	return;
+			// } 
+ 			user.local.fname = req.body.fname;
+ 			user.local.lname = req.body.lname;
+ 			user.local.email = req.body.email;
+ 			// 
+ 			user.save(user.local); 	
+ 			// res.redirect('./profile');		 
+		});
+
+		if (!req.files) {
+		    return res.status(400).send('No files were uploaded.');
+		}
+		  // The name of the input field (i.e. "userImg") is used to retrieve the uploaded file 
+		var userImg = req.files.userImg;
+		 
+		  // Use the mv() method to place the file somewhere on your server 
+		userImg.mv('./models/users-img/'+ req.user.id + '.jpg', function(err) {
+		    if (err){
+		 	   return res.status(500).send(err);
+		    }
+		 
+		   res.send('File uploaded!');
+		});
+
+		res.redirect('./profile');
+	});
+
 
 	// =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
@@ -200,6 +246,22 @@ function run(app, passport){
 			res.redirect('/profile');
 		});
 	});
+
+	//404
+	app.use(function(req, res){
+		dataToTemplate.page = "404";
+		res.status(404);
+		res.render('template', dataToTemplate );
+	})
+
+	//500
+	app.use(function(err, req, res, next){
+		if(err) console.log(err);
+		dataToTemplate.page = "500";
+		res.status(500);
+		res.render('template', dataToTemplate );
+	});
+
 
 		// route middleware to ensure user is logged in
 	function isLoggedIn(req, res, next) {

@@ -61,35 +61,40 @@ h2 {
 	color: #e8200e;
 }
 
-/*---------------------------------------------Авторизация*/
+/*---------------------------------------------Авторизация/Регистрация/Профиль*/
 .sign-up>div,
-.sign-in>div {
+.sign-in>div,
+.profile>div {
     width: 400px;
     margin: 100px auto;
 }
 
 .sign-up h2,
-.sign-in h2 {
+.sign-in h2,
+.profile h2 {
 	text-align: center;
 	width: 312px;
 }
 
 .sign-up label,
-.sign-in label {
+.sign-in label,
+.profile label {
     font-size: 14px;
     color: #cecccb;
     font-style: italic;
 }
 
 .sign-up input,
-.sign-in input {
+.sign-in input,
+.profile input {
     margin: 10px 0;
     padding-left: 10px;  
     /*text-align: center;*/
 }
 
 .sign-up input[type="text"],
-.sign-in input[type="text"] {
+.sign-in input[type="text"],
+.profile input[type="text"] {
 	width: 300px;
 	height: 30px;
 	background-color: #282828;
@@ -100,7 +105,8 @@ h2 {
 }
 
 .sign-up input[type="submit"],
-.sign-in input[type="submit"] {
+.sign-in input[type="submit"],
+.profile input[type="submit"] {
     width: 312px;
     height: 40px;
     background-color: #8c1d13;
@@ -112,11 +118,414 @@ h2 {
 }
 
 .sign-up input[type="text"]:focus,
-.sign-in input[type="text"]:focus {
+.sign-in input[type="text"]:focus,
+.profile input[type="text"]:focus {
 	outline: 1px solid #b1b1b1;
 }
 
 .sign-up input[type="submit"]:focus,
-.sign-in input[type="submit"]:focus {
+.sign-in input[type="submit"]:focus,
+.profile input[type="submit"]:focus {
 	outline: 1px solid #750f00;
 }
+
+.sign-in a,
+.profile a {
+	color: white;
+    text-decoration: none;
+}
+
+.sign-in a:hover,
+.profile a:hover {
+    text-decoration: underline;
+}
+
+.users-img img {
+    width: 200px;
+    height: 200px;
+}
+
+.user-balance {
+	width: 312px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.user-balance p,
+.user-balance span {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+}
+
+.user-balance button {
+	float: right;
+    height: 25px;
+    background-color: #656363;
+    border: 1px solid #adadad;
+    color: #ffffff;
+}
+
+.user-balance button:focus {
+	outline: none;
+	border: 1px solid white;
+}
+
+/*---------------------------------------------Игра*/
+#table-page {
+	display: none;
+}
+
+.table {
+    width: 70%;
+    float: left;
+}
+
+.table img {
+    width: 100%;
+}
+
+button#start-game {
+	display: none;
+    top: 40%;
+    left: 670px;
+    position: absolute;
+    font-size: 25px;
+    padding: 10px;
+    background-color: #540508;
+    color: #f6eff5;
+    border: 1px solid #611e22;
+    border-radius: 5px;
+}
+
+button#start-game:focus {
+	outline: 2px solid #d8222d;
+}
+
+/*---------------------------------------------Чат*/
+.chat {
+    width: 20%;
+    float: right;
+    position: relative;
+    padding: 0 20px;
+}
+
+.chat h2 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+#chatField {
+    height: 600px;
+    border: 1px solid #797979;
+    background-color: #282828;
+}
+
+input#userMessage {
+    width: 280px;
+    height: 30px;
+    background-color: #282828;
+    border: 1px solid #797979;
+    font-size: 14px;
+    color: white;
+    margin: 10px 0 0px;
+    padding: 0 5px;
+}
+
+button#sendMessageToServer {
+    width: 290px;
+    height: 40px;
+    background-color: #8c1d13;
+    border: none;
+    color: #c3c3c3;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+input#userMessage:focus {
+	outline: 1px solid #b1b1b1;
+}
+
+button#sendMessageToServer:focus {
+	outline: 1px solid #750f00;
+}
+/*---------------------------------------------Пользователи*/
+#players>div {
+    display: inline-block;
+    position: absolute;
+}
+
+.player-1 {
+    top: 500px;
+    left: 200px;
+}
+
+.player-2 {
+    top: 650px;
+    left: 450px;
+}
+
+.player-3 {
+    top: 750px;
+    left: 720px;
+}
+
+.player-4 {
+    top: 650px;
+    left: 1000px;
+}
+
+.player-5 {
+    top: 500px;
+    left: 1200px;
+}
+
+/*---------------------------------------------Фишки*/
+.chips {
+	width: 500px;
+	height: 50px;
+}
+
+.chips-5,
+.chips-10,
+.chips-20,
+.chips-50,
+.chips-100 {
+	background: url(/img/chips.png) no-repeat 0 0;
+	width: 50px;
+    height: 33px;
+    display: table-cell;
+}
+
+.chips-5 {
+	background-position: -63px 0px;
+}
+
+.chips-10 {
+	background-position: -123px 0px;
+}
+
+.chips-20 {
+    background-position: -3px -60px;
+}
+
+.chips-50 {
+    background-position: -63px -60px;
+}
+
+.chips-100 {
+    background-position: -123px -60px;
+}
+/*==================CARDS======================*/
+.cards {
+	background: url(/img/deck_of_cards.png) no-repeat 0 0;
+	width: 40px;
+    height: 62px;
+}
+
+.ca {
+	background-position: 0px 0px;
+}
+
+.c2 {
+	background-position: -40px 0px;
+}
+
+.c3 {
+	background-position: -80px 0px;
+}
+
+.c4 {
+	background-position: -120px 0px;
+}
+
+.c5 {
+	background-position: -160px 0px;
+}
+
+.c6 {
+	background-position: -200px 0px;
+}
+
+.c7 {
+	background-position: -240px 0px;
+}
+
+.c8 {
+	background-position: -280px 0px;
+}
+
+.c9 {
+	background-position: -320px 0px;
+}
+
+.c10 {
+	background-position: -360px 0px;
+}
+
+.cj {
+	background-position: -400px 0px;
+}
+
+.cq {
+	background-position: -440px 0px;
+}
+
+.ck {
+	background-position: -480px 0px;
+}
+
+.da {
+	background-position: 0px -62px;
+}
+
+.d2 {
+	background-position: -40px -62px;
+}
+
+.d3 {
+	background-position: -80px -62px;
+}
+
+.d4 {
+	background-position: -120px -62px;
+}
+
+.d5 {
+	background-position: -160px -62px;
+}
+
+.d6 {
+	background-position: -200px -62px;
+}
+
+.d7 {
+	background-position: -240px -62px;
+}
+
+.d8 {
+	background-position: -280px -62px;
+}
+
+.d9 {
+	background-position: -320px -62px;
+}
+
+.d10 {
+	background-position: -360px -62px;
+}
+
+.dj {
+	background-position: -400px -62px;
+}
+
+.dq {
+	background-position: -440px -62px;
+}
+
+.dk {
+	background-position: -480px -62px;
+}
+
+.da {
+	background-position: 0px -62px;
+}
+
+.h2 {
+	background-position: -40px -124px;
+}
+
+.h3 {
+	background-position: -80px -124px;
+}
+
+.h4 {
+	background-position: -120px -124px;
+}
+
+.h5 {
+	background-position: -160px -124px;
+}
+
+.h6 {
+	background-position: -200px -124px;
+}
+
+.h7 {
+	background-position: -240px -124px;
+}
+
+.h8 {
+	background-position: -280px -124px;
+}
+
+.h9 {
+	background-position: -320px -124px;
+}
+
+.h10 {
+	background-position: -360px -124px;
+}
+
+.hj {
+	background-position: -400px -124px;
+}
+
+.hq {
+	background-position: -440px -124px;
+}
+
+.hk {
+	background-position: -480px -124px;
+}
+
+.s2 {
+	background-position: -40px -186px;
+}
+
+.s3 {
+	background-position: -80px -186px;
+}
+
+.s4 {
+	background-position: -120px -186px;
+}
+
+.s5 {
+	background-position: -160px -186px;
+}
+
+.s6 {
+	background-position: -200px -186px;
+}
+
+.s7 {
+	background-position: -240px -186px;
+}
+
+.s8 {
+	background-position: -280px -186px;
+}
+
+.s9 {
+	background-position: -320px -186px;
+}
+
+.s10 {
+	background-position: -360px -186px;
+}
+
+.sj {
+	background-position: -400px -186px;
+}
+
+.sq {
+	background-position: -440px -186px;
+}
+
+.sk {
+	background-position: -480px -186px;
+}
+

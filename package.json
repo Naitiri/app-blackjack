@@ -9,8 +9,22 @@
   "author": "me",
   "license": "GPL-3.0",
   "dependencies": {
+    "bcrypt-nodejs": "latest",
+    "body-parser": "~1.0.0",
+    "connect-flash": "~0.1.1",
+    "cookie-parser": "~1.0.0",
     "ejs": "^2.5.5",
     "express": "^4.14.1",
-    "mongoose": "^4.8.1"
+    "express-fileupload": "^0.1.1",
+    "express-session": "~1.0.0",
+    "method-override": "~1.0.0",
+    "mongoose": "^4.8.1",
+    "morgan": "~1.0.0",
+    "passport": "~0.1.17",
+    "passport-facebook": "~1.0.2",
+    "passport-google-oauth": "~0.1.5",
+    "passport-local": "~0.1.6",
+    "passport-twitter": "~1.0.2",
+    "socket.io": "^1.7.3"
   }
 }

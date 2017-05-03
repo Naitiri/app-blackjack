@@ -1,0 +1,74 @@
+<div class="game">
+	<div id="game-lobby" class="game-lobby">
+		<button id="add-table">Добавить стол</button>
+		<ul id="tables-list"></ul>
+	</div>
+	<div id="table-page">
+		<div class="table">
+			<img src="/img/table.png">
+			<button id="start-game">Начать игру</button>
+			<div class="set-bet">
+				<p>Делайте ваши ставки <span>30</span> секунд</p>
+			</div>
+			<div class="chips">
+				<div class="chips-5" data-value="5"></div>
+				<div class="chips-10" data-value="10"></div>
+				<div class="chips-20" data-value="20"></div>
+				<div class="chips-50" data-value="50"></div>
+				<div class="chips-100" data-value="100"></div>
+			</div>
+		</div>
+		<div id="players" class="players">
+			<div id="player-1" class="player-1">
+				<div class="player-bet"></div>
+				<div class="player-hand"></div>
+				<div class="player-points"></div>
+				<!-- <div class="player-img"></div> -->
+				<div class="player-name"></div>
+				<!-- <div class="player-balance"></div> -->
+			</div>
+			<div id="player-2" class="player-2">
+				<div class="player-bet">50</div>
+				<div class="player-hand">0</div>
+				<div class="player-points">21</div>
+				<!-- <div class="player-img"></div> -->
+				<div class="player-name">Иван Иванов</div>
+				<div class="player-balance">300</div>
+			</div> 
+			<div id="player-3" class="player-3">
+				<div class="player-bet">30</div>
+				<div class="player-hand">0</div>
+				<div class="player-points">12</div>
+				<!-- <div class="player-img"></div> -->
+				<div class="player-name">Петр Петров</div>
+				<div class="player-balance">400</div>
+			</div> 
+			<div id="player-4" class="player-4">
+				<div class="player-bet">25</div>
+				<div class="player-hand">0</div>
+				<div class="player-points">15</div>
+				<!-- <div class="player-img"></div> -->
+				<div class="player-name">Василий Васильев</div>
+				<div class="player-balance">1300</div>
+			</div> 
+			<div id="player-5" class="player-5">
+				<div class="player-bet">90</div>
+				<div class="player-hand">0</div>
+				<div class="player-points">19</div>
+				<!-- <div class="player-img"></div> -->
+				<div class="player-name">Семён Семёныч</div>
+				<div class="player-balance">800</div>
+			</div> 			
+		</div>
+		<div class="player-balance">
+			<p>Баланс: </p>
+			<span></span>
+		</div>
+		<div class="chat">
+			<h2>Чат пользователей</h2>
+			<div id="chatField"></div>
+			<input type="text" id="userMessage">
+			<button id="sendMessageToServer">Отправить</button>
+		</div>
+	</div>
+</div>

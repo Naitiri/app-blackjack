@@ -4,13 +4,15 @@
 	<title>Шаблон</title>
 	<link href="https://fonts.googleapis.com/css?family=Arsenal|Open+Sans+Condensed:300" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/socket.io/socket.io.js"></script>
+<script>
+	// var socket = io.connect('http://localhost:3000');
+</script>
 </head>
 <body>
 	<div class="wrapper">
 
 		<% include partials/header %>
-
-		<!-- <% include partials/sidebar %> -->
 
 		<% if (page == "main") { %>
 			<% include pages/index %>
@@ -20,16 +22,16 @@
 			<% include pages/about %>
 		<% } %>
 
-		<% if (page == "users") { %>
-			<% include pages/users %>
-		<% } %>
-
 		<% if (page == "profile") { %>
 			<% include pages/profile %>
 		<% } %>
 
 		<% if (page == "sign_up") { %>
 			<% include pages/sign_up %>
+		<% } %>
+
+		<% if (page == "game") { %>
+			<% include pages/game %>
 		<% } %>
 
 		<% if (page == "sign_in") { %>
@@ -44,10 +46,10 @@
 			<% include pages/500 %>
 		<% } %>
 
-		<% include partials/footer %>
 	</div>
 
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script type="text/javascript" src="/js/validator.js"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/script.js"></script>
+	<script type="text/javascript" src="/js/table.js"></script>
 </body>
 </html>

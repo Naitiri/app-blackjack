@@ -1,13 +1,4 @@
-function run (mongoose) {
-// var userSchema = new mongoose.Schema({
-// 		fname : String,
-// 		lname : String,
-// 		email : String,
-// 		passwd : String
-// 	});
-
-// return mongoose.model("userModel", userSchema);
-
+	var mongoose   = require('mongoose');
 	var bcrypt   = require('bcrypt-nodejs');
 	// define the schema for our user model
 	var userSchema = mongoose.Schema({
@@ -15,6 +6,13 @@ function run (mongoose) {
 	    local            : {
 	        email        : String,
 	        password     : String,
+			fname        : String,
+	        lname	     : String,
+	        avatar	     : String,
+	        balance	     : {
+	        	type     : Number,
+	        	default  : 1000
+	        },
 	    },
 	    facebook         : {
 	        id           : String,
@@ -47,9 +45,9 @@ function run (mongoose) {
 	    return bcrypt.compareSync(password, this.local.password);
 	};
 
+	userSchema.methods.changeBalance = function(balance) {
+	    this.local.balance = balance;
+	};
+
 	// create the model for users and expose it to our app
 	module.exports = mongoose.model('User', userSchema);
-
-}
-
-module.exports = run;

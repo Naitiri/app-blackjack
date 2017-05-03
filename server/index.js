@@ -1,39 +1,68 @@
-function run(mongoose){
-	var express = require("express");
-	var app = express();
-	var port     = process.env.PORT || 8080;
-	var router = require("./router");
-	var passport = require('passport');
-	var flash    = require('connect-flash');
-
-	app.set('view engine', 'ejs');
+function run(mongoose, port){
+	var express 	 = require("express");
+	var app 		 = express();
+	var passport 	 = require('passport');
+	var flash   	 = require('connect-flash');
+	var morgan       = require('morgan');
+	var cookieParser = require('cookie-parser')();
+	var bodyParser   = require('body-parser');
+	var session      = require('express-session');
+	var http 		 = require('http').createServer(app);
+	var io 			 = require('socket.io')(http);
+	var fileUpload 	 = require('express-fileupload');
+	var User         = require('../models/users');	
 	
-	require('../config/passport')(passport); // pass passport for configuration
+	require('./passport')(passport, User);
 
-// app.configure(function() {
+	app.use(morgan('dev')); // log every request to the console
+	
+	app.set('view engine', 'ejs');
 
-	// set up our express application
-	app.use(express.logger('dev')); // log every request to the console
-	app.use(express.cookieParser()); // read cookies (needed for auth)
-	app.use(express.bodyParser()); // get information from html forms
-
-	// app.set('view engine', 'ejs'); // set up ejs for templating
-	// app.use('/', express.static(__dirname + '/public'));
-	// required for passport
-	app.use(express.session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-	app.use(passport.initialize());
-	app.use(passport.session()); // persistent login sessions
+	var sessionMiddleware = session({ secret: 'test!23:"?<>6787zimayfgkz;ttcnLETTO',
+									  });
+	
+	app.use(cookieParser); // read cookies (needed for auth)
+	app.use(bodyParser()); // get information from html forms
+	
+	app.use(sessionMiddleware); // session secret
+	var passportInit = passport.initialize();
+	app.use(passportInit);
+	var passportSession = passport.session();
+	app.use(passportSession); // persistent login sessions
 	app.use(flash()); // use connect-flash for flash messages stored in session
-// });
 
+
+	app.use(fileUpload({
+	  limits: { fileSize: 50 * 1024 * 1024 },
+	}));
+
+	io.use(function(socket, next){
+	  socket.client.request.originalUrl = socket.client.request.url;
+	  cookieParser(socket.client.request, socket.client.request.res, next);
+	});
+
+	io.use(function(socket, next){
+	  socket.client.request.originalUrl = socket.client.request.url;
+	  sessionMiddleware(socket.client.request,   socket.client.request.res, next);
+	});
+
+	io.use(function(socket, next){
+	  passportInit(socket.client.request, socket.client.request.res, next);
+	});
+
+	io.use(function(socket, next){
+	  passportSession(socket.client.request, socket.client.request.res, next);
+	});
 
 	app.use('/', express.static(__dirname + '/../public'));
+	app.use('/', express.static(__dirname + '/../models'));
 
-	require('../server/routes.js')(app, passport);
+	require("./router")(app, passport, User, io);
+	require("../application")(io, User, mongoose);
 
-	app.listen(port, function(){
-		router(app, mongoose);
-		console.log("listening " + port + " port");
+	http.listen(port, function(){
+		
+		console.log("listening " + port + " port");	
 	})
 
 }
